@@ -1,0 +1,39 @@
+version: "2"
+services:
+  base:
+    build: .
+    volumes:
+      - .:/home
+      - ./docker-config/apache:/opt/docker/etc/httpd/conf.d
+    ports:
+      - "3000:80"
+    links:
+      - db:db-host
+    depends_on:
+      - db
+
+  db:
+    image: mysql
+    environment:
+      MYSQL_DATABASE: db_project
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: docker
+      MYSQL_PASSWORD: docker
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+    volumes:
+      - ./docker-dirs/db:/var/lib/mysql
+      - ./docker-config/mysql:/etc/mysql/conf.d
+    ports:
+      - "3306:3306"
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      MYSQL_USERNAME: docker
+      MYSQL_ROOT_PASSWORD: root
+      PMA_USER: docker
+      PMA_PASSWORD: docker
+    depends_on:
+      - db
+    ports:
+      - "3001:80"

@@ -1,0 +1,9 @@
+# Ignore everything
+*
+
+# But not these files...
+!.gitignore
+!db_project
+!mysql
+!performance_schema
+!sys
