@@ -61,11 +61,11 @@ This is Apache + PHP 7.3 Docker Image
 
 <img src="./images/creating_server.png" width="400" />
 
-- **_Note_** that the last Intellij Idea creates connection on first run. You just to accept connection
+- **_Note_** that the last Intellij Idea creates a connection on the first run. You just to accept a connection
 
 ## SSH connection
 
-If it is necessary, there is possibility to create ssh connection inside docker container:
+If it is necessary, there is a possibility to create ssh connection inside docker container:
 
 <img src="./images/ssh_connection.png" width="400" />
 
