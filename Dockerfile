@@ -1,4 +1,4 @@
-FROM php:7.4-apache
+FROM php:7.3-apache
 
 WORKDIR /var/www
 
@@ -19,7 +19,10 @@ RUN apt-get update && apt-get install -y \
         libjpeg-dev \
         libfreetype6-dev \
         libssl-dev \
-        ssmtp \
+        libzip-dev \
+        msmtp \
+        msmtp-mta \
+        ca-certificates \
         unzip \
         wget \
         zlib1g-dev \
@@ -27,13 +30,15 @@ RUN apt-get update && apt-get install -y \
         mc \
         openssh-server \
         gnupg \
+    && pecl install \
+        mcrypt-1.0.2 \
+        xdebug \
     && docker-php-ext-install \
         bcmath \
         curl \
         exif \
         intl \
         mbstring \
-        mcrypt \
         pdo_mysql \
         mysqli \
         opcache \
@@ -48,15 +53,10 @@ RUN apt-get update && apt-get install -y \
         json \
         iconv \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
-    && docker-php-ext-install gd
-
-#####################################
-# xDebug:
-#####################################
-
-# Install the xdebug extension
-RUN pecl install xdebug && \
-    docker-php-ext-enable xdebug
+    && docker-php-ext-install gd \
+    && docker-php-ext-enable \
+        xdebug \
+        mcrypt
 
 #####################################
 # Human Language and Character Encoding Support:
@@ -132,6 +132,13 @@ RUN ssh-keygen -q -N "" -t dsa -f /etc/ssh/ssh_host_ecdsa_key
 RUN ssh-keygen -q -N "" -t rsa -f /etc/ssh/ssh_host_rsa_key
 RUN ssh-keygen -A
 RUN echo 'root:root' | chpasswd
+RUN mkdir /run/sshd
+RUN chmod 0755 /run/sshd
+
+#####################################
+# Mail configration
+#####################################
+RUN chmod 0600 /etc/msmtprc
 
 #####################################
 # Coping configration
@@ -139,10 +146,10 @@ RUN echo 'root:root' | chpasswd
 COPY ./configs/custom.ini /usr/local/etc/php/conf.d/custom.ini
 COPY ./configs/opcache.ini /usr/local/etc/php/conf.d/opcache.ini
 COPY ./configs/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
-COPY ./configs/ssmtp.conf /etc/ssmtp/ssmtp.conf
+#COPY ./configs/ssmtp.conf /etc/ssmtp/ssmtp.conf
 COPY ./configs/apache2.conf /etc/apache2/apache2.conf
 COPY ./configs/virtualhost.conf /etc/apache2/sites-enabled/virtualhost.conf
-COPY ./configs/sshd_config /etc/ssh/sshd_config
+COPY ./configs/msmtprc /etc/msmtprc
 RUN rm -rf ./configs
 
 #####################################
