@@ -84,28 +84,28 @@ If it is necessary, there is a possibility to create ssh connection inside docke
       application:
         image: vnemchenko/php7-apache
         volumes:
-          - ${APPLICATION}:/var/www
-          - ${DOCKER_CONFIGS}/custom.ini:/usr/local/etc/php/conf.d/custom.ini
-          - ${DOCKER_CONFIGS}/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
-          - ${DOCKER_CONFIGS}/opcache.ini:/usr/local/etc/php/conf.d/opcache.ini
-          - ${DOCKER_CONFIGS}/apache2.conf:/etc/apache2/apache2.conf
-          - ${DOCKER_CONFIGS}/virtualhost.conf:/etc/apache2/sites-enabled/virtualhost.conf
-          - ${DOCKER_CONFIGS}/msmtprc:/etc/msmtprc
-          - ${DOCKER_TMP_DIRS}:/tmp/php
-          - ${DOCKER_LOG_DIRS}:/tmp/logs
+          - ${PATH_TO_SOURCE_DIRECTORY}:/var/www
+          - ${PATH_TO_DOCKER_CONFIGS}/custom.ini:/usr/local/etc/php/conf.d/custom.ini
+          - ${PATH_TO_DOCKER_CONFIGS}/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
+          - ${PATH_TO_DOCKER_CONFIGS}/opcache.ini:/usr/local/etc/php/conf.d/opcache.ini
+          - ${PATH_TO_DOCKER_CONFIGS}/apache2.conf:/etc/apache2/apache2.conf
+          - ${PATH_TO_DOCKER_CONFIGS}/virtualhost.conf:/etc/apache2/sites-enabled/virtualhost.conf
+          - ${PATH_TO_DOCKER_CONFIGS}/msmtprc:/etc/msmtprc
+          - ${PATH_TO_TMP_DIRECTORIES}:/tmp/php
+          - ${PATH_TO_LOG_DIRECTORIES}:/tmp/logs
         ports:
-          - ${APP_HTTP_PORT}:80
-          - ${APP_HTTPS_PORT}:443
-          - ${APP_SSH_PORT}:22
+          - ${YOUR_HTTP_PORT}:80
+          - ${YOUR_HTTPS_PORT}:443
+          - ${YOUR_SSH_PORT}:22
         environment:
-          - PHP_IDE_CONFIG=${PHP_IDE_CONFIG}
-          - XDEBUG_CONFIG=${XDEBUG_CONFIG}
+          - PHP_IDE_CONFIG=${YOUR_PHP_IDE_CONFIG}
+          - XDEBUG_CONFIG=${YOUR_XDEBUG_CONFIG}
           
 ## Minimal docker-compose configuration
 
       application:
         image: vnemchenko/php7-apache
         volumes:
-          - ${APPLICATION}:/var/www
+          - ${PATH_TO_SOURCE_DIRECTORY}:/var/www
         ports:
-          - ${APP_HTTP_PORT}:80
+          - ${YOUR_HTTP_PORT}:80
