@@ -138,6 +138,7 @@ RUN chmod 0755 /run/sshd
 #####################################
 # Mail configration
 #####################################
+RUN mkdir /etc/msmtprc
 RUN chmod 0600 /etc/msmtprc
 
 #####################################
