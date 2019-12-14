@@ -138,7 +138,7 @@ RUN chmod 0755 /run/sshd
 #####################################
 # Mail configration
 #####################################
-RUN mkdir /etc/msmtprc
+RUN touch /etc/msmtprc
 RUN chmod 0600 /etc/msmtprc
 
 #####################################
@@ -147,7 +147,7 @@ RUN chmod 0600 /etc/msmtprc
 COPY ./configs/custom.ini /usr/local/etc/php/conf.d/custom.ini
 COPY ./configs/opcache.ini /usr/local/etc/php/conf.d/opcache.ini
 COPY ./configs/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
-#COPY ./configs/ssmtp.conf /etc/ssmtp/ssmtp.conf
+COPY ./configs/sshd_config /etc/ssh/sshd_config
 COPY ./configs/apache2.conf /etc/apache2/apache2.conf
 COPY ./configs/virtualhost.conf /etc/apache2/sites-enabled/virtualhost.conf
 COPY ./configs/msmtprc /etc/msmtprc

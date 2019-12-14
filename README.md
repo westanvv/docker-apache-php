@@ -63,6 +63,16 @@ This is Apache + PHP 7.3 Docker Image
 
 - **_Note_** that the last Intellij Idea creates connection on first run. You just to accept connection
 
+## SSH connection
+
+If it is necessary, there is possibility to create ssh connection inside docker container:
+
+<img src="./images/ssh_connection.png" width="400" />
+
+    host: 127.0.0.1
+    login: root
+    pass: root
+
 ## Build commands
 
     docker build -t php7-apache .
@@ -86,6 +96,7 @@ This is Apache + PHP 7.3 Docker Image
         ports:
           - ${APP_HTTP_PORT}:80
           - ${APP_HTTPS_PORT}:443
+          - ${APP_SSH_PORT}:22
         environment:
           - PHP_IDE_CONFIG=${PHP_IDE_CONFIG}
           - XDEBUG_CONFIG=${XDEBUG_CONFIG}
