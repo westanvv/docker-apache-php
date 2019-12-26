@@ -150,6 +150,8 @@ COPY ./configs/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
 COPY ./configs/sshd_config /etc/ssh/sshd_config
 COPY ./configs/apache2.conf /etc/apache2/apache2.conf
 COPY ./configs/virtualhost.conf /etc/apache2/sites-enabled/virtualhost.conf
+COPY ./configs/ssl/server.crt /etc/apache2/ssl/server.crt
+COPY ./configs/ssl/server.key /etc/apache2/ssl/server.key
 COPY ./configs/msmtprc /etc/msmtprc
 RUN rm -rf ./configs
 
