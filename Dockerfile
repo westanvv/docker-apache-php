@@ -30,6 +30,7 @@ RUN apt-get update && apt-get install -y \
         mc \
         openssh-server \
         gnupg \
+        cron \
     && pecl install \
         mcrypt-1.0.2 \
         xdebug \
@@ -101,7 +102,7 @@ RUN apt-get install -y --force-yes \
 ######################################
 ## NodeJS
 ######################################
-RUN curl -sL https://deb.nodesource.com/setup_13.x | bash -
+RUN curl -sL https://deb.nodesource.com/setup_14.x | bash -
 RUN apt-get install -y nodejs
 
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
@@ -163,6 +164,11 @@ RUN mkdir /tmp/php
 RUN chown -R www-data:www-data ./
 RUN chmod -R 777 /var/www
 RUN chmod -R 777 /tmp
+
+RUN useradd -U -u 1000 docker
+RUN mkdir /home/docker
+#RUN chown -R docker:docker /home/docker /run/sshd /tmp /etc/msmtprc
+#USER docker
 
 EXPOSE 22
 
